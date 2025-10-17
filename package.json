@@ -1,6 +1,6 @@
 {
   "name": "test-with-vite",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "main.mjs",

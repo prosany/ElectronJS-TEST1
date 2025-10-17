@@ -1,0 +1,69 @@
+{
+  "name": "test-with-vite",
+  "version": "1.0.7",
+  "private": true,
+  "type": "module",
+  "main": "main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "dev:desktop": "concurrently \"pnpm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "build:web": "tsc -b && vite build",
+    "build:desktop": "electron-builder --publish never",
+    "build:all": "pnpm run build:web && pnpm run build:desktop",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "electron-is-dev": "^3.0.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "wait-on": "^9.0.1",
+    "concurrently": "^9.2.1",
+    "electron": "^38.3.0",
+    "electron-builder": "^26.0.12",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "~5.9.3"
+  },
+  "build": {
+    "appId": "com.prosany.zentra",
+    "productName": "Vite Electron",
+    "files": [
+      "dist/**/*",
+      "main.mjs",
+      "package.json",
+      "node_modules/**"
+    ],
+    "extraFiles": [
+      {
+        "from": "dist",
+        "to": "Resources/dist"
+      },
+      {
+        "from": "preload.js",
+        "to": "Resources/preload.js"
+      }
+    ],
+    "asar": true,
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}
